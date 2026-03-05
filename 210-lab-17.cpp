@@ -3,6 +3,14 @@
 #include <iostream>
 using namespace std;
 
+//Functions to add
+// Function that adds node to head of list
+// Function that adds node to tail of list
+// Inserting a node at a specific location in the list
+// Deleting a node at a specific location in the list
+// Deleting the entire list.
+// Leave output function as is.
+
 const int SIZE = 7;  
 
 struct Node {
