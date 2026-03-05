@@ -127,3 +127,8 @@ void output(Node * hd) {
     }
     cout << endl;
 }
+
+void addToHead(Node *&head, float value) {
+    
+
+}
