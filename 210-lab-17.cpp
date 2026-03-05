@@ -18,7 +18,12 @@ struct Node {
     Node *next;
 };
 
-void output(Node *);
+void output(Node *, float); // Doesn't need reference since it's only outputting list, not modifying it.
+void addToHead(Node *&, float); // Passes head by reference so that we can modify it in the function.
+void addToTail(Node *&, float); // Float parameter is the value to be added to the new node.
+void insertAt(Node *&, float, int); // Int paramter will be used for position to insert/delete.
+void deleteAt(Node *&, float, int);
+void deleteList(Node *&);
 
 int main() {
     Node *head = nullptr;
