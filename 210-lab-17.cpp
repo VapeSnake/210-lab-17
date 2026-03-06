@@ -6,9 +6,9 @@ using namespace std;
 // Functions to add
 //  Function that adds node to head of list (Check)
 //  Function that adds node to tail of list (Check)
-//  Inserting a node at a specific location in the list
-//  Deleting a node at a specific location in the list
-//  Deleting the entire list.
+//  Inserting a node at a specific location in the list (Check)
+//  Deleting a node at a specific location in the list (Check)
+//  Deleting the entire list (Check)
 //  Leave output function as is.
 
 const int SIZE = 7;
@@ -48,7 +48,7 @@ int main()
             newVal->value = tmp_val;
             head = newVal;
         }
-    } */
+    } 
     output(head);
 
     // deleting a node
@@ -118,6 +118,10 @@ int main()
     }
     head = nullptr;
     output(head);
+*/
+    addToHead(head, 10.5);
+    addToTail(head, 20.5);
+    insertAt(head, 15.5, 2); // Inserts 15.5 at position 2 (between 10.5 and 20.5)
 
     return 0;
 }
@@ -154,6 +158,7 @@ void addToHead(Node *&head, float value)
         newVal->value = value;
         head = newVal;
     }
+    output(head); // outputs the list after adding the new node to verify that it was added correctly.
 }
 
 void addToTail(Node *&head, float value)
@@ -163,7 +168,6 @@ void addToTail(Node *&head, float value)
         head = new Node;
         head->next = nullptr;
         head->value = value;
-        output(head); // outputs the list after adding the first node to verify that it was added correctly.
     }
     else
     { // its a second or subsequent node; place at the tail
@@ -176,12 +180,14 @@ void addToTail(Node *&head, float value)
         newVal->next = nullptr; // new tail node points to null
         newVal->value = value;
         current->next = newVal; // old tail node points to new tail node
-        output(head);
     }
+    output(head); // outputs the list after adding the new node to verify that it was added correctly.
 }
 
 void insertAt(Node *&head, float value, int pos)
 { // Instead of using cin, we can pass the position as a parameter to the function.
+    cout << "List before inserting " << value << " at position " << pos << ":\n";
+    output(head);
     if (pos == 1)
     {
         addToHead(head, value); // if the position to insert is 1, we can just call addToHead function
@@ -192,7 +198,6 @@ void insertAt(Node *&head, float value, int pos)
         for (int i = 1; i < (pos - 1) && current; i++)
         { // checks for current to be valid to avoid out of bounds.
             current = current->next;
-            output(head);
         }
         if (current)
         { // if current is valid, we can insert the new node
@@ -202,11 +207,14 @@ void insertAt(Node *&head, float value, int pos)
             current->next = newNode;       // current node points to the new node
         }
     }
+    cout << "List after inserting " << value << " at position " << pos << ":\n";
     output(head); // outputs the list after inserting the new node to verify that it was inserted correctly.
 }
 
 void deleteAt(Node *&head, float value, int pos)
 { // Similar to insertAt, except for deleting node
+    cout << "List before deleting node at position " << pos << ":\n";
+    output(head);
     if (pos == 1)
     {
         deleteList(head); // if the position to delete is 1, we can just call deleteList function to delete the entire list
@@ -215,6 +223,35 @@ void deleteAt(Node *&head, float value, int pos)
     {
         Node *current = head; // Moves to current node to the position before the node we want to delete
         Node *prev = head; // Keeps track of the previous node to reroute pointers after deleting the current node
-        for (int i)
+        for (int i = 1; i < (pos - 1) && current; i++)
+        { // checks for current to be valid to avoid out of bounds.
+            current = current->next;
+            prev = prev->next;
+        }
+        if (current && current->next) // checks for current and current->next to be valid to avoid out of bounds.
+        {
+            Node *temp = current->next; // temp node to hold the node we want to delete
+            current->next = temp->next; // current node points to the node after the node we want to delete
+            delete temp;                // deletes the node we want to delete
+            temp = nullptr;             // sets temp to null after deleting the node
+        }
     }
+    cout << "List after deleting node at position " << pos << ":\n";
+    output(head); // outputs the list after deleting the node to verify that it was deleted correctly
+}
+
+void deleteList(Node *&head)
+{
+    cout << "List before deleting the entire list:\n";
+    output(head);
+    Node *current = head;
+    while (current)
+    {
+        head = current->next; // moves head to the next node in the list
+        delete current;       // deletes the current node
+        current = head;      // moves current to the new head of the list
+    }
+    head = nullptr; // sets head to null after deleting the entire list
+    cout << "List after deleting the entire list:\n";
+    output(head); // outputs the list after deleting the entire list to verify that it was deleted correctly.
 }
