@@ -30,6 +30,7 @@ int main() {
     int count = 0;
 
     // create a linked list of size SIZE with random numbers 0-99
+    /*
     for (int i = 0; i < SIZE; i++) {
         int tmp_val = rand() % 100;
         Node *newVal = new Node;
@@ -45,7 +46,7 @@ int main() {
             newVal->value = tmp_val;
             head = newVal;
         }
-    }
+    } */
     output(head);
 
     // deleting a node
@@ -129,6 +130,33 @@ void output(Node * hd) {
 }
 
 void addToHead(Node *&head, float value) {
+    if (!head) { // if this is the first node, it's the new head
+        head = new Node;
+        head->next = nullptr;
+        head->value = value;
+    }
+    else { // its a second or subsequent node; place at the head
+        Node *newVal = new Node;
+        newVal->next = head;
+        newVal->value = value;
+        head = newVal;
+    }
+}
 
-
+void addToTail(Node *&head, float value) {
+    if (!head) { // Even if this function is used, checks for empty list.
+        head = new Node;
+        head->next = nullptr;
+        head->value = value;
+    }
+    else { // its a second or subsequent node; place at the tail
+        Node *current = head;
+        while (current->next) { // traverse to the end of the list
+            current = current->next;
+        }
+        Node *newVal = new Node;
+        newVal->next = nullptr; // new tail node points to null
+        newVal->value = value;
+        current->next = newVal; // old tail node points to new tail node
+    }
 }
