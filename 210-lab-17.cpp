@@ -4,8 +4,8 @@
 using namespace std;
 
 //Functions to add
-// Function that adds node to head of list
-// Function that adds node to tail of list
+// Function that adds node to head of list (Check)
+// Function that adds node to tail of list (Check)
 // Inserting a node at a specific location in the list
 // Deleting a node at a specific location in the list
 // Deleting the entire list.
@@ -158,5 +158,25 @@ void addToTail(Node *&head, float value) {
         newVal->next = nullptr; // new tail node points to null
         newVal->value = value;
         current->next = newVal; // old tail node points to new tail node
+    }
+}
+
+void insertAt(Node *&head, float value, int pos) { // Instead of using cin, we can pass the position as a parameter to the function.
+    if (pos == 1) {
+        addToHead(head, value); // if the position to insert is 1, we can just call addToHead function
+    } else {
+        Node *current = head; // traverse to the position before where we want to insert
+        for (int i = 1; i < (pos - 1) && current; i++) { // checks for current to be valid to avoid out of bounds.
+            current = current->next;
+            output(head);
+        }
+        if (current) { // if current is valid, we can insert the new node
+            Node *newNode = new Node;
+            newNode->value = value;
+            newNode->next = current->next; // new node points to the next node in the list
+            current->next = newNode; // current node points to the new node
+            delete newNode; // delete the new node to avoid memory leak
+            output(head); // output the list after insertion to verify that the node was inserted correctly
+        }
     }
 }
