@@ -1,5 +1,5 @@
 // COMSC-210 | Lab 17 | Noel Mier-Luna
-
+// Continuing assignment
 #include <iostream>
 using namespace std;
 
@@ -129,6 +129,6 @@ void output(Node * hd) {
 }
 
 void addToHead(Node *&head, float value) {
-    
+
 
 }
